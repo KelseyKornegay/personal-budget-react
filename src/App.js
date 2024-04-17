@@ -10,8 +10,9 @@ import Menu from './Menu/Menu';
 import Hero from './Hero/Hero';
 import HomePage from './HomePage/HomePage';
 import Footer from './Footer/Footer';
-import AboutPage from './AboutPage/AboutPage';
 import LoginPage from './LoginPage/LoginPage';
+import DashboardPage from './DashboardPage/DashboardPage';
+import ConfigureBudget from './ConfigureBudget/ConfigureBudget';
 
 export default function App() {
   return (
@@ -20,8 +21,9 @@ export default function App() {
     <Hero/>
     <div className="mainContainer">
     <Routes>
-    <Route path="/about" element={<AboutPage />}/>
+    <Route path="/configureBudget" element={<ConfigureBudget />}/>
     <Route path="/login" element={<LoginPage />}/>
+    <Route path="/dashboard" element={<DashboardPage />}/>
     <Route path="/" element={<HomePage />}/>
     </Routes>
     </div>

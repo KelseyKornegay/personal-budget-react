@@ -1,7 +1,5 @@
 
 import React from "react";
-import PieChart from "../PieChart/PieChart";
-import DonutChart from "../DonutChart/DonutChartBudget";
 
 export default function HomePage() {
   return (
@@ -43,12 +41,7 @@ export default function HomePage() {
                     because they know it is all good and accounted for.
                 </p>
             </article>
-            <h1>Charts</h1>
-			
-            <div id="chart-container">
-                <PieChart />
-                <DonutChart />
-            </div>
+         
         </div>
 		  </main>
     </>
