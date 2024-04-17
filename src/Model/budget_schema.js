@@ -1,7 +1,10 @@
 
-const mongoose = require('mongoose')
+//Also taken from old mongodb assignment. Unsure if this is correct and/or needs to be tweaked//
+//I added  "type": "module",  to the package.json file so that it could read the import statements, not sure if this was the right move or not.//
 
-const budgetSchema = new mongoose.Schema({
+import { Schema, model } from 'mongoose';
+
+const budgetSchema = new Schema({
     title:{
         type:String,
         trim:true,
@@ -26,4 +29,4 @@ const budgetSchema = new mongoose.Schema({
     }
 },{collection:'budget'})
 
-module.exports = mongoose.model('budget',budgetSchema)
+export default model('budget',budgetSchema)

@@ -9,7 +9,8 @@ const url = 'mongodb://127.0.0.1:27017/personal_budget_mongodb';
 app.use(cors());
 app.use(express.json());
 
-app.use('/', express.static('public'));
+app.use('/', express.static('src')); 
+//this line is wrong, as are other lines I'm sure. It is connected and reading my budget since localhost:3001/budget displays my budget in both my browser and my terminal.//
 
 app.get('/budget', async (req, res) => {
     try {
@@ -77,6 +78,3 @@ app.listen(3001, () => {
 //    }
 // }); 
 
-// app.listen(3001, () => {
-//     console.log('Server is running on port 3001');
-// });
