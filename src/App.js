@@ -6,13 +6,13 @@ import {
   Route,
 } from "react-router-dom";
 
-import Menu from './Menu/Menu';
-import Hero from './Hero/Hero';
-import HomePage from './HomePage/HomePage';
-import Footer from './Footer/Footer';
-import LoginPage from './LoginPage/LoginPage';
-import DashboardPage from './DashboardPage/DashboardPage';
-import ConfigureBudget from './ConfigureBudget/ConfigureBudget';
+import Menu from './Menu/Menu.js';
+import Hero from './Hero/Hero.js';
+import HomePage from './HomePage/HomePage.js';
+import Footer from './Footer/Footer.js';
+import LoginPage from './LoginPage/LoginPage.js';
+import DashboardPage from './DashboardPage/DashboardPage.js';
+import ConfigureBudget from './ConfigureBudget/ConfigureBudget.js';
 
 export default function App() {
   return (

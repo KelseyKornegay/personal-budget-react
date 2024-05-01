@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import DonutChart from './DonutChart'
-import { defaultData } from './DonutData'
+import DonutChart from './DonutChart.js'
+import { defaultData } from './DonutData.js'
 import axios from 'axios'
 
 export default function DonutChartComponent() {
@@ -10,9 +10,10 @@ export default function DonutChartComponent() {
     async function getDonutData() {
       const url = 'http://localhost:3001/budget';
       const res = await axios.get(url);
-      console.log(res.data.myBudget);
-      const budgetData = res.data.myBudget;
+      console.log(res.data, "A random string");
+      const budgetData = res.data;
       const updatedData = budgetData.map((item) => {
+        console.log(item);
         return (
           {
             name: item.title,

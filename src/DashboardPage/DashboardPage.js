@@ -1,8 +1,8 @@
 
 import React from "react";
-import PieChart from "../PieChart/PieChart";
-import DonutChart from "../DonutChart/DonutChartBudget";
-import BarChart from "../BarChart/BarChart";
+import PieChart from "../PieChart/PieChart.js";
+import DonutChart from "../DonutChart/DonutChartBudget.js";
+import BarChart from "../BarChart/BarChart.js";
 
 function DashboardPage() {
   return (

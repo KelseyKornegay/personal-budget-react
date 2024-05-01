@@ -14,7 +14,7 @@ function Menu() {
         <ul>
             <li><Link to="/">Home</Link></li> 
             <li><Link to="/login">Login</Link></li>
-            <li><Link to="/dashboard">Dashboard</Link></li> 
+            <li><Link to="/dashboard">My Budget</Link></li> 
             <li><Link to="/configureBudget">Configure Budget</Link></li>
         </ul>
     </nav>

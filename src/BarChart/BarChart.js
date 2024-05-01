@@ -24,7 +24,7 @@ const BarChart = () => {
       async function getChartData() {
         const url = 'http://localhost:3001/budget';
         const res = await axios.get(url);
-        const budgetData = res.data.myBudget;
+        const budgetData = res.data;
         const titles = budgetData.map((item) => item.title);
         const budgets = budgetData.map((item) => item.budget);
   
