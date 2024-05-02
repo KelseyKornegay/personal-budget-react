@@ -1,6 +1,4 @@
 
-//Also taken from old mongodb assignment. Unsure if this is correct and/or needs to be tweaked//
-//I added  "type": "module",  to the package.json file so that it could read the import statements, not sure if this was the right move or not.//
 
 import { Schema, model } from 'mongoose';
 
@@ -26,6 +24,10 @@ const budgetSchema = new Schema({
         required:true,
         trim:true,
         uppercase:true
+    },
+    userID:{
+        type:String,
+        required:true,
     }
 },{collection:'budget'})
 

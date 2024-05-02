@@ -22,11 +22,24 @@ const BarChart = () => {
   
     useEffect(() => {
       async function getChartData() {
-        const url = 'http://localhost:3001/budget';
-        const res = await axios.get(url);
-        const budgetData = res.data;
-        const titles = budgetData.map((item) => item.title);
-        const budgets = budgetData.map((item) => item.budget);
+        let titles = [];
+        let budgets = [];
+
+
+       try {
+        const userID=localStorage.getItem('UserID');
+        const response = await axios.post('http://localhost:3001/budget', { userID });
+        console.log('Server response:', response);
+        const budgetData = response?.data;
+         console.log("budgetData-->",budgetData);
+          titles = budgetData?.map((item) => item.title);
+          budgets = budgetData?.map((item) => item.budget);
+       }
+       catch(error){
+        console.error('An error occurred:', error); 
+       }
+     
+     
   
         const backgroundColors = [
           'rgba(191, 149, 0, 0.6)',
@@ -52,8 +65,8 @@ setData({
       {
         ...data.datasets[0],
         data: budgets,
-        backgroundColor: budgets.map((_, i) => backgroundColors[i % backgroundColors.length]),
-        borderColor: budgets.map((_, i) => borderColors[i % borderColors.length]),
+        backgroundColor: budgets?.map((_, i) => backgroundColors[i % backgroundColors.length]),
+        borderColor: budgets?.map((_, i) => borderColors[i % borderColors.length]),
       },
     ],
   });

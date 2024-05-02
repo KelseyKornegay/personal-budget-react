@@ -24,6 +24,7 @@ function LoginPage() {
       localStorage.setItem('token', response.data.token);
       const expiryTime = Date.now() + 60 * 1000; // Current time + 1 minute
     localStorage.setItem('tokenExpiry', expiryTime);
+    localStorage.setItem('UserID',response.data.user._id );
     navigate('/'); // Redirect to Homepage
     alert('You have successfully logged in!'); // Display a popup message
 

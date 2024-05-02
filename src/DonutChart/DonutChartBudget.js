@@ -9,7 +9,8 @@ export default function DonutChartComponent() {
   useEffect(() => {
     async function getDonutData() {
       const url = 'http://localhost:3001/budget';
-      const res = await axios.get(url);
+      const userID=localStorage.getItem('UserID');
+      const res = await axios.post(url,{userID});
       console.log(res.data, "A random string");
       const budgetData = res.data;
       const updatedData = budgetData.map((item) => {

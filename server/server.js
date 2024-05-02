@@ -21,8 +21,13 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
+    budget: [{    //just added this line today//
+      title: String,
+      value: Number,
+      color: String
+  }]
+});
 
-  });
   
   const userModel = mongoose.model('User', userSchema);
   
@@ -90,50 +95,63 @@ const ACCESS_TOKEN_SECRET = 'shadowcapone328823'; // Secret key for JWT token
 app.use('/', express.static('src/index.js')); 
 
 
-app.get('/budget', async (req, res) => {
-    try {
-        await mongoose.connect(url);
-        console.log("Connected to the database");
+app.post("/budget", async (req, res) => {
+  try {
+    await mongoose.connect(url);
+    const data = await budgetModel.find({ userID: req.body.userID});
+    console.log("Fetched data:", data);
+    res.send(data);
 
-        const data = await budgetModel.find({});
-        console.log("Fetched data:", data);
-        res.send(data);
-
-        await mongoose.connection.close();
-        console.log("Connection closed");
-    } catch (error) {
-        console.error("Error handling the request:", error);
-        res.status(500).send("Internal Server Error");
-    }
+    await mongoose.connection.close();
+    console.log("Connection closed");
+} catch (error) {
+    console.error("Error handling the request:", error);
+    res.status(500).send("Internal Server Error");
+}
 });
+
+
 
 app.post("/addNewBudget", async (req, res) => {
   console.log('Request body:', req.body);
-  try {
+      try {
       await mongoose.connect(url);
-  } catch (error) {
+  }   catch (error) {
       console.error("Error connecting to the database:", error);
       return res.status(500).send("Error connecting to the database");
   }
-
-  try {
+      try {
       let newData = new budgetModel(req.body);
+      console.log('New data:', newData);
       await newData.save();
-  } catch (error) {
+  }   catch (error) {
       console.error("Error inserting data:", error);
       console.error('Error message:', error.message);
       return res.status(500).send("Error inserting data");
   }
-
-  res.send("Data Entered Successfully");
-
-  try {
+    res.send("Data Entered Successfully");
+      try {
       await mongoose.connection.close();
-  } catch (error) {
+  }   catch (error) {
       console.error("Error closing the connection:", error);
       return res.status(500).send("Error closing the connection");
   }
 });
+
+// app.post("/addNewBudget", authenticateToken, async (req, res) => {
+//   try {
+//       await mongoose.connect(url);
+//       const budget = new budgetModel({ ...req.body, user: req.user._id });
+//       const result = await budget.save();
+//       res.status(201).send({ message: 'Budget item created', budget: result });
+//   } catch (error) {
+//       console.error('Error creating budget item:', error);
+//       res.status(500).send('Internal Server Error');
+//   } finally {
+//       await mongoose.connection.close();
+//   }
+// });
+
 
 app.delete("/deleteBudget/:id", async (req, res) => {
   console.log('Request to delete budget item with id:', req.params.id);
