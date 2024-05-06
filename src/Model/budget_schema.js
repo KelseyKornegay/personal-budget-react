@@ -27,7 +27,6 @@ const budgetSchema = new Schema({
     },
     userID:{
         type:String,
-        required:true,
     }
 },{collection:'budget'})
 

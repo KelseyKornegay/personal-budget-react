@@ -16,6 +16,8 @@ app.use(express.json());
 app.use(compression());
 
 
+app.use('/', express.static('src/index.js')); 
+
 // Define the user model
 const userSchema = new mongoose.Schema({
     username: String,
@@ -30,6 +32,10 @@ const userSchema = new mongoose.Schema({
 
   
   const userModel = mongoose.model('User', userSchema);
+
+  app.get('/', (req, res) => {
+    res.status(200).send('Server is running');
+  });
   
   // Add the signup route handler
   app.post('/api/signup', async (req, res) => {
@@ -42,7 +48,7 @@ const userSchema = new mongoose.Schema({
       console.error('Error creating user:', error);
       res.status(500).send('Internal Server Error');
     } finally {
-      await mongoose.connection.close();
+      // await mongoose.connection.close();
     }
   });
 
@@ -57,6 +63,8 @@ const userSchema = new mongoose.Schema({
       next();
     });
   }
+
+  export { authenticateToken };
 
   app.get('/api/protected', authenticateToken, (req, res) => {
     // This route is now protected. Only requests with a valid token can access it.
@@ -87,13 +95,14 @@ const ACCESS_TOKEN_SECRET = 'shadowcapone328823'; // Secret key for JWT token
       console.error('Error logging in:', error);
       res.status(500).json({ error: 'Internal Server Error', message: error.message });
     } finally {
-      await mongoose.connection.close();
+      // await mongoose.connection.close();
     }
   });
 
 
-app.use('/', express.static('src/index.js')); 
+// app.use('/', express.static('src/index.js')); 
 
+//There is no app.get ? //
 
 app.post("/budget", async (req, res) => {
   try {
@@ -102,8 +111,8 @@ app.post("/budget", async (req, res) => {
     console.log("Fetched data:", data);
     res.send(data);
 
-    await mongoose.connection.close();
-    console.log("Connection closed");
+    //await mongoose.connection.close();
+    //console.log("Connection closed");
 } catch (error) {
     console.error("Error handling the request:", error);
     res.status(500).send("Internal Server Error");
@@ -131,26 +140,12 @@ app.post("/addNewBudget", async (req, res) => {
   }
     res.send("Data Entered Successfully");
       try {
-      await mongoose.connection.close();
+      // await mongoose.connection.close();
   }   catch (error) {
       console.error("Error closing the connection:", error);
       return res.status(500).send("Error closing the connection");
   }
 });
-
-// app.post("/addNewBudget", authenticateToken, async (req, res) => {
-//   try {
-//       await mongoose.connect(url);
-//       const budget = new budgetModel({ ...req.body, user: req.user._id });
-//       const result = await budget.save();
-//       res.status(201).send({ message: 'Budget item created', budget: result });
-//   } catch (error) {
-//       console.error('Error creating budget item:', error);
-//       res.status(500).send('Internal Server Error');
-//   } finally {
-//       await mongoose.connection.close();
-//   }
-// });
 
 
 app.delete("/deleteBudget/:id", async (req, res) => {
@@ -173,7 +168,7 @@ app.delete("/deleteBudget/:id", async (req, res) => {
   res.send("Data Deleted Successfully");
 
   try {
-      await mongoose.connection.close();
+      // await mongoose.connection.close();
   } catch (error) {
       console.error("Error closing the connection:", error);
       return res.status(500).send("Error closing the connection");
@@ -181,10 +176,10 @@ app.delete("/deleteBudget/:id", async (req, res) => {
 });
 
 
+
 app.listen(3001, () => {
     console.log('Server is running on port 3001');
 });
 
 
-//Droplet: 138.197.80.148 //
-
+export default app; // Export the app object for testing

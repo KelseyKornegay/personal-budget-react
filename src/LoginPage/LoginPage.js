@@ -10,11 +10,12 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
 
+  
   const toggleForm = () => {
     setIsLogin(!isLogin);
   };
 
-  
+
   const handleLogin = async (event) => {
     event.preventDefault();
     console.log('handleLogin called');
@@ -26,9 +27,11 @@ function LoginPage() {
     localStorage.setItem('tokenExpiry', expiryTime);
     localStorage.setItem('UserID',response.data.user._id );
     navigate('/'); // Redirect to Homepage
-    alert('You have successfully logged in!'); // Display a popup message
-
-  // Now that you have the token, you can make a request to the protected route
+    alert('You have successfully logged in!'); 
+      // Schedule a logout for when the token expires
+      setTimeout(() => {
+        handleLogout();
+      }, 60 * 1000); // 1 minute
   const token = response.data.token;
   axios.get('http://localhost:3001/api/protected', {
     headers: {
@@ -38,13 +41,13 @@ function LoginPage() {
   .then(protectedResponse => {
     console.log(protectedResponse.data);
     // Call handleProtectedRoute after successful login
-    handleProtectedRoute();
+    // handleProtectedRoute();
   })
   .catch(error => {
     console.error('Error accessing protected route:', error);
   });
 
-  setTimeout(() => { // Schedule a warning to appear 45 seconds after login
+  setTimeout(() => { 
     if (window.confirm('Warning, you are about to be logged out in 15 seconds, click here to log back in')) {
       navigate('/login');
     }
@@ -56,7 +59,6 @@ function LoginPage() {
 
 } catch (error) {
   console.error('Login failed:', error);
-  // If the login was not successful due to incorrect credentials, show an alert
   if (error.response && error.response.data && error.response.data.error === 'Invalid credentials') {
     alert('Sorry, your username or password is incorrect');
     // Clear the login fields
@@ -66,23 +68,31 @@ function LoginPage() {
 }
 };
 
+
+const resetUserData = () => {
+  // Clear user-specific data from local storage
+  localStorage.removeItem('username');
+  localStorage.removeItem('email');
+  localStorage.removeItem('budget'); // Clear budget data
+  // Reset state variables
+  setUsername('');
+  setEmail('');
+};
   
-  const handleLogout = () => {
-    // Ask the user if they are sure they want to log out
-    if (window.confirm('Are you sure you want to log out?')) {
+const handleLogout = () => {
+  if (window.confirm('Are you sure you want to log out?')) {
     // If the user clicked OK, clear the token and expiry time from local storage
-    //clear the token and expiry time from local storage
-      localStorage.removeItem('token');
-      localStorage.removeItem('tokenExpiry');
-    //redirect to the login page
-      navigate('/');
-    //redirect to the login page
-    }
-  };
+    localStorage.removeItem('token');
+    localStorage.removeItem('tokenExpiry');
+    localStorage.removeItem('UserID');
+    // Reset user-specific data
+    resetUserData();
+    // Redirect to the login page
+    navigate('/login');
+  }
+};
 
-
-
-  const handleSignup = async (event) => { // Add this function
+  const handleSignup = async (event) => { 
     event.preventDefault();
     try {
       const response = await axios.post('http://localhost:3001/api/signup', { username, email, password });
@@ -96,23 +106,6 @@ function LoginPage() {
     }
   };
 
-  const handleProtectedRoute = async () => {
-    const token = localStorage.getItem('token');
-    const tokenExpiry = localStorage.getItem('tokenExpiry');
-    if (Date.now() > tokenExpiry) {
-      // Token is expired, redirect to login page
-      window.location.href = '/login';
-      
-    } else {
-      // Token is not expired, proceed with the request
-      try {
-        const response = await axios.get('http://localhost:3001/api/protected', { headers: { Authorization: `Bearer ${token}` } });
-        console.log(response.data);
-      } catch (error) {
-        console.error('Request failed:', error);
-      }
-    }
-  };
 
   return (
     <div>
@@ -149,5 +142,6 @@ function LoginPage() {
     </div>
   );
 }
+
 
 export default LoginPage;

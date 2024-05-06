@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 function ConfigureBudget() {
     const [budgetItem, setBudgetItem] = useState('');
     const [budgetAmount, setBudgetAmount] = useState('');
@@ -37,12 +38,14 @@ function ConfigureBudget() {
     };
 
     useEffect(() => {
+        const userID=localStorage.getItem('UserID');
         const fetchBudget = async () => {
-            const response = await axios.get('http://localhost:3001/budget');
+            const response = await axios.post('http://localhost:3001/budget',{userID});
             setBudgetItems(response.data);
         };
         fetchBudget();
     }, []);
+
 
     return (
         <div>
@@ -55,7 +58,7 @@ function ConfigureBudget() {
                 <input type="number" id="budgetAmount" name="budgetAmount" required value={budgetAmount} onChange={e => setBudgetAmount(e.target.value)} />
                 <button type="submit">Add Budget Item</button>
             </form>
-            <h2>Current Budget Items</h2>
+            <h2>Current Alloted Budget Items </h2>
             {budgetItems.map(item => (
                 <div key={item._id}>
                 <h3>{item.title}: {item.budget}</h3>

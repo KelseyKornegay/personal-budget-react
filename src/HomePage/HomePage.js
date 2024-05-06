@@ -16,7 +16,7 @@ export default function HomePage() {
 
             {/* Each article has a heading and a paragraph. The id on the heading and the aria-labelledby on the paragraph associate each paragraph with its heading, which can help screen readers provide more context to users. */}
             <article>
-                <h1 id="track-heading">Stay on track {localStorage.getItem("UserID")}</h1>
+                <h1 id="track-heading">Stay on track </h1>
                 <p aria-labelledby="track-heading">
                     Do you know where you are spending your money? If you really stop to track it down,
                     you would get surprised! Proper budget management depends on real data... and this
