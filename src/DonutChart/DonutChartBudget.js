@@ -8,7 +8,7 @@ export default function DonutChartComponent() {
 
   useEffect(() => {
     async function getDonutData() {
-      const url = 'http://52.15.66.45:3001/budget';
+      const url = 'http://18.189.17.100:3001/budget';
       const userID=localStorage.getItem('UserID');
       const res = await axios.post(url,{userID});
       console.log(res.data, "A random string");

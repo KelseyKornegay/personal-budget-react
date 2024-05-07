@@ -28,7 +28,7 @@ const BarChart = () => {
 
        try {
         const userID=localStorage.getItem('UserID');
-        const response = await axios.post('http://52.15.66.45:3001/budget', { userID });
+        const response = await axios.post('http://18.189.17.100:3001/budget', { userID });
         console.log('Server response:', response);
         const budgetData = response?.data;
          console.log("budgetData-->",budgetData);
