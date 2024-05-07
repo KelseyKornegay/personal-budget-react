@@ -111,7 +111,7 @@ describe('Visual Regression Test', () => {
   });
 
   it('should display the homepage correctly', async () => {
-    await page.goto('http://18.216.241.25:3001'); 
+    await page.goto('http://18.191.247.199:3001'); 
     const image = await page.screenshot();
 
     expect(image).toMatchImageSnapshot();
