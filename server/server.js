@@ -9,7 +9,7 @@ import jwt from 'jsonwebtoken';
 
 const app = express();
 // const url = 'mongodb://127.0.0.1:27017/personal_budget_mongodb';
-let url = "mongodb+srv://kkorneg7:hcyAMgzrZ0NsWfEt@cluster0.qr3ry2b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+let url = "mongodb+srv://kkorneg7:hcyAMgzrZ0NsWfEt@cluster0.qr3ry2b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 
 app.use(cors());
