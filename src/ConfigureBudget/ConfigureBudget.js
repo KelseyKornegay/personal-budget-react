@@ -20,7 +20,7 @@ function ConfigureBudget() {
     const handleDelete = async (item) => {
         const confirmDelete = window.confirm('Are you sure you want to delete this item?');
         if (confirmDelete) {
-            await axios.delete(`http://18.189.17.100:3001/deleteBudget/${item._id}`);
+            await axios.delete(`http://18.216.241.25:3001/deleteBudget/${item._id}`);
             setBudgetItems(budgetItems.filter(budgetItem => budgetItem._id !== item._id));
         }
     };
@@ -33,7 +33,7 @@ function ConfigureBudget() {
             color: getRandomColor(),
             userID: localStorage.getItem('UserID') 
         };
-        await axios.post('http://18.189.17.100:3001/addNewBudget', budgetData);
+        await axios.post('http://18.216.241.25:3001/addNewBudget', budgetData);
         setBudgetItem('');
         setBudgetAmount('');
     };
@@ -41,7 +41,7 @@ function ConfigureBudget() {
     useEffect(() => {
         const userID=localStorage.getItem('UserID');
         const fetchBudget = async () => {
-            const response = await axios.post('http://18.189.17.100:3001/budget',{userID});
+            const response = await axios.post('http://18.216.241.25:3001/budget',{userID});
             setBudgetItems(response.data);
         };
         fetchBudget();

@@ -41,7 +41,7 @@ export default function PieChart() {
 
   useEffect(() => {
     async function getChartData() {
-      const url = 'http://18.189.17.100:3001/budget';
+      const url = 'http://18.216.241.25:3001/budget';
       const userID=localStorage.getItem('UserID');
       const res = await axios.post(url,{userID});
       console.log(res.data);

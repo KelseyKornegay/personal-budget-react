@@ -20,7 +20,7 @@ function LoginPage() {
     event.preventDefault();
     console.log('handleLogin called');
     try {
-      const response = await axios.post('http://18.189.17.100:3001/api/login', { username, password });
+      const response = await axios.post('http://18.216.241.25:3001/api/login', { username, password });
       console.log('Server response:', response);
       localStorage.setItem('token', response.data.token);
       const expiryTime = Date.now() + 60 * 1000; // Current time + 1 minute
@@ -33,7 +33,7 @@ function LoginPage() {
         handleLogout();
       }, 60 * 1000); // 1 minute
   const token = response.data.token;
-  axios.get('http://18.189.17.100:3001/api/protected', {
+  axios.get('http://18.216.241.25:3001/api/protected', {
     headers: {
       Authorization: 'Bearer ' + token
     }
@@ -95,7 +95,7 @@ const handleLogout = () => {
   const handleSignup = async (event) => { 
     event.preventDefault();
     try {
-      const response = await axios.post('http://18.189.17.100:3001/api/signup', { username, email, password });
+      const response = await axios.post('http://18.216.241.25:3001/api/signup', { username, email, password });
       localStorage.setItem('token', response.data.token);
       const expiryTime = Date.now() + 60 * 1000; // Current time + 1 minute
       localStorage.setItem('tokenExpiry', expiryTime);
